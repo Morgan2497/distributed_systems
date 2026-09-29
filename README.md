@@ -1,12 +1,10 @@
-# Gossip Glomers: Echo
+# Gossip Glomers
 
-My Go solution to [Fly.io's first distributed systems challenge](https://fly.io/dist-sys/1/).
-The node receives JSON messages from Maelstrom and replies to each `echo` request with an `echo_ok` response containing the same value.
+Go solutions and notes for the [Fly.io distributed systems challenges](https://fly.io/dist-sys/).
 
-Build the node with:
+| Chapter | Workload | Code and notes |
+| --- | --- | --- |
+| 1 | Echo | [echo/](echo/) |
+| 2 | Unique ID generation | [unique-ids/](unique-ids/) |
 
-```sh
-go build -o maelstrom-echo .
-```
-
-To test it, download [Maelstrom 0.2.3](https://github.com/jepsen-io/maelstrom/releases/tag/v0.2.3), then run its `maelstrom` launcher with the `echo` workload and the path to the built binary.
+Both programs use the Go module at the repository root. Build and test commands for each chapter are in its README.
