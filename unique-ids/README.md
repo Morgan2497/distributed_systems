@@ -98,17 +98,17 @@ The [Fly.io challenge series](https://fly.io/dist-sys/1/) says Maelstrom injects
 
 ## Build and test in this workspace
 
-From the `dist_sys/` repository root, build this directory as a separate binary. Placing the binary in `/tmp` keeps generated artifacts out of the repository:
+Fly.io's command assumes your shell is inside the downloaded `maelstrom/` directory and that the node binary exists at `~/go/bin/maelstrom-unique-ids`. From this `dist_sys/unique-ids/` directory, build the binary with that exact name, then move to the Maelstrom directory:
 
 ```sh
-go build -o /tmp/maelstrom-unique-ids ./unique-ids
-../maelstrom/maelstrom test -w unique-ids \
-  --bin /tmp/maelstrom-unique-ids \
+go build -o ~/go/bin/maelstrom-unique-ids .
+cd ../../maelstrom
+./maelstrom test -w unique-ids --bin ~/go/bin/maelstrom-unique-ids \
   --time-limit 30 --rate 1000 --node-count 3 \
   --availability total --nemesis partition
 ```
 
-The command and settings come from [Chapter 2](https://fly.io/dist-sys/2/). Maelstrom checks that returned IDs are distinct and that the nodes continue to answer while the network is partitioned. A `generate` handler that sends `generate_ok` replies is required before this test can pass.
+The test settings come from [Chapter 2](https://fly.io/dist-sys/2/). Maelstrom checks that returned IDs are distinct and that the nodes continue to answer while the network is partitioned. A `generate` handler that sends `generate_ok` replies is required before this test can pass.
 
 ## Questions to check your understanding
 
