@@ -1,0 +1,143 @@
+2026/10/06 14:59:31 Received {c4 n0 {"type":"init","node_id":"n0","node_ids":["n0","n1","n2","n3","n4"],"msg_id":1}}
+2026/10/06 14:59:31 Node n0 initialized
+2026/10/06 14:59:31 Sent {"src":"n0","dest":"c4","body":{"in_reply_to":1,"type":"init_ok"}}
+2026/10/06 14:59:31 Received {c5 n0 {"type":"topology","topology":{"n0":["n3","n1"],"n1":["n4","n2","n0"],"n2":["n1"],"n3":["n0","n4"],"n4":["n1","n3"]},"msg_id":1}}
+2026/10/06 14:59:31 Sent {"src":"n0","dest":"c5","body":{"in_reply_to":1,"type":"topology_ok"}}
+2026/10/06 14:59:31 Received {c10 n0 {"type":"read","msg_id":1}}
+2026/10/06 14:59:31 Sent {"src":"n0","dest":"c10","body":{"in_reply_to":1,"messages":[],"type":"read_ok"}}
+2026/10/06 14:59:32 Received {c10 n0 {"type":"broadcast","message":4,"msg_id":2}}
+2026/10/06 14:59:32 Sent {"src":"n0","dest":"c10","body":{"in_reply_to":2,"type":"broadcast_ok"}}
+2026/10/06 14:59:32 Received {c10 n0 {"type":"broadcast","message":5,"msg_id":3}}
+2026/10/06 14:59:32 Sent {"src":"n0","dest":"c10","body":{"in_reply_to":3,"type":"broadcast_ok"}}
+2026/10/06 14:59:32 Received {c10 n0 {"type":"broadcast","message":7,"msg_id":4}}
+2026/10/06 14:59:32 Sent {"src":"n0","dest":"c10","body":{"in_reply_to":4,"type":"broadcast_ok"}}
+2026/10/06 14:59:32 Received {c10 n0 {"type":"broadcast","message":8,"msg_id":5}}
+2026/10/06 14:59:32 Sent {"src":"n0","dest":"c10","body":{"in_reply_to":5,"type":"broadcast_ok"}}
+2026/10/06 14:59:33 Received {c10 n0 {"type":"broadcast","message":10,"msg_id":6}}
+2026/10/06 14:59:33 Sent {"src":"n0","dest":"c10","body":{"in_reply_to":6,"type":"broadcast_ok"}}
+2026/10/06 14:59:33 Received {c10 n0 {"type":"broadcast","message":11,"msg_id":7}}
+2026/10/06 14:59:33 Sent {"src":"n0","dest":"c10","body":{"in_reply_to":7,"type":"broadcast_ok"}}
+2026/10/06 14:59:34 Received {c10 n0 {"type":"read","msg_id":8}}
+2026/10/06 14:59:34 Sent {"src":"n0","dest":"c10","body":{"in_reply_to":8,"messages":[5,7,8,10,11,4],"type":"read_ok"}}
+2026/10/06 14:59:34 Received {c10 n0 {"type":"broadcast","message":15,"msg_id":9}}
+2026/10/06 14:59:34 Sent {"src":"n0","dest":"c10","body":{"in_reply_to":9,"type":"broadcast_ok"}}
+2026/10/06 14:59:34 Received {c10 n0 {"type":"read","msg_id":10}}
+2026/10/06 14:59:34 Sent {"src":"n0","dest":"c10","body":{"in_reply_to":10,"messages":[15,4,5,7,8,10,11],"type":"read_ok"}}
+2026/10/06 14:59:34 Received {c10 n0 {"type":"broadcast","message":18,"msg_id":11}}
+2026/10/06 14:59:34 Sent {"src":"n0","dest":"c10","body":{"in_reply_to":11,"type":"broadcast_ok"}}
+2026/10/06 14:59:35 Received {c10 n0 {"type":"broadcast","message":22,"msg_id":12}}
+2026/10/06 14:59:35 Sent {"src":"n0","dest":"c10","body":{"in_reply_to":12,"type":"broadcast_ok"}}
+2026/10/06 14:59:35 Received {c10 n0 {"type":"read","msg_id":13}}
+2026/10/06 14:59:35 Sent {"src":"n0","dest":"c10","body":{"in_reply_to":13,"messages":[8,10,5,7,11,15,18,22,4],"type":"read_ok"}}
+2026/10/06 14:59:35 Received {c10 n0 {"type":"read","msg_id":14}}
+2026/10/06 14:59:35 Sent {"src":"n0","dest":"c10","body":{"in_reply_to":14,"messages":[4,8,10,5,7,11,15,18,22],"type":"read_ok"}}
+2026/10/06 14:59:35 Received {c10 n0 {"type":"broadcast","message":25,"msg_id":15}}
+2026/10/06 14:59:35 Sent {"src":"n0","dest":"c10","body":{"in_reply_to":15,"type":"broadcast_ok"}}
+2026/10/06 14:59:36 Received {c10 n0 {"type":"read","msg_id":16}}
+2026/10/06 14:59:36 Sent {"src":"n0","dest":"c10","body":{"in_reply_to":16,"messages":[4,8,10,25,5,7,11,15,18,22],"type":"read_ok"}}
+2026/10/06 14:59:36 Received {c10 n0 {"type":"read","msg_id":17}}
+2026/10/06 14:59:36 Sent {"src":"n0","dest":"c10","body":{"in_reply_to":17,"messages":[4,8,10,25,5,7,11,15,18,22],"type":"read_ok"}}
+2026/10/06 14:59:36 Received {c10 n0 {"type":"read","msg_id":18}}
+2026/10/06 14:59:36 Sent {"src":"n0","dest":"c10","body":{"in_reply_to":18,"messages":[4,8,10,25,5,7,11,15,18,22],"type":"read_ok"}}
+2026/10/06 14:59:36 Received {c10 n0 {"type":"read","msg_id":19}}
+2026/10/06 14:59:36 Sent {"src":"n0","dest":"c10","body":{"in_reply_to":19,"messages":[10,25,5,7,11,15,18,22,4,8],"type":"read_ok"}}
+2026/10/06 14:59:37 Received {c10 n0 {"type":"broadcast","message":32,"msg_id":20}}
+2026/10/06 14:59:37 Sent {"src":"n0","dest":"c10","body":{"in_reply_to":20,"type":"broadcast_ok"}}
+2026/10/06 14:59:37 Received {c10 n0 {"type":"read","msg_id":21}}
+2026/10/06 14:59:37 Sent {"src":"n0","dest":"c10","body":{"in_reply_to":21,"messages":[5,7,11,15,18,22,4,8,10,25,32],"type":"read_ok"}}
+2026/10/06 14:59:37 Received {c10 n0 {"type":"broadcast","message":36,"msg_id":22}}
+2026/10/06 14:59:37 Sent {"src":"n0","dest":"c10","body":{"in_reply_to":22,"type":"broadcast_ok"}}
+2026/10/06 14:59:38 Received {c10 n0 {"type":"read","msg_id":23}}
+2026/10/06 14:59:38 Sent {"src":"n0","dest":"c10","body":{"in_reply_to":23,"messages":[5,7,11,15,18,22,36,4,8,10,25,32],"type":"read_ok"}}
+2026/10/06 14:59:38 Received {c10 n0 {"type":"broadcast","message":37,"msg_id":24}}
+2026/10/06 14:59:38 Sent {"src":"n0","dest":"c10","body":{"in_reply_to":24,"type":"broadcast_ok"}}
+2026/10/06 14:59:38 Received {c10 n0 {"type":"broadcast","message":38,"msg_id":25}}
+2026/10/06 14:59:38 Sent {"src":"n0","dest":"c10","body":{"in_reply_to":25,"type":"broadcast_ok"}}
+2026/10/06 14:59:38 Received {c10 n0 {"type":"read","msg_id":26}}
+2026/10/06 14:59:38 Sent {"src":"n0","dest":"c10","body":{"in_reply_to":26,"messages":[11,15,18,22,36,4,8,10,25,32,37,38,5,7],"type":"read_ok"}}
+2026/10/06 14:59:38 Received {c10 n0 {"type":"broadcast","message":39,"msg_id":27}}
+2026/10/06 14:59:38 Sent {"src":"n0","dest":"c10","body":{"in_reply_to":27,"type":"broadcast_ok"}}
+2026/10/06 14:59:39 Received {c10 n0 {"type":"broadcast","message":42,"msg_id":28}}
+2026/10/06 14:59:39 Sent {"src":"n0","dest":"c10","body":{"in_reply_to":28,"type":"broadcast_ok"}}
+2026/10/06 14:59:39 Received {c10 n0 {"type":"broadcast","message":43,"msg_id":29}}
+2026/10/06 14:59:39 Sent {"src":"n0","dest":"c10","body":{"in_reply_to":29,"type":"broadcast_ok"}}
+2026/10/06 14:59:40 Received {c10 n0 {"type":"broadcast","message":46,"msg_id":30}}
+2026/10/06 14:59:40 Sent {"src":"n0","dest":"c10","body":{"in_reply_to":30,"type":"broadcast_ok"}}
+2026/10/06 14:59:40 Received {c10 n0 {"type":"read","msg_id":31}}
+2026/10/06 14:59:40 Sent {"src":"n0","dest":"c10","body":{"in_reply_to":31,"messages":[39,10,25,32,37,38,46,18,36,42,43,4,8,5,7,11,15,22],"type":"read_ok"}}
+2026/10/06 14:59:40 Received {c10 n0 {"type":"broadcast","message":47,"msg_id":32}}
+2026/10/06 14:59:40 Sent {"src":"n0","dest":"c10","body":{"in_reply_to":32,"type":"broadcast_ok"}}
+2026/10/06 14:59:40 Received {c10 n0 {"type":"read","msg_id":33}}
+2026/10/06 14:59:40 Sent {"src":"n0","dest":"c10","body":{"in_reply_to":33,"messages":[8,5,7,11,15,22,39,10,25,32,37,38,46,18,36,42,43,47,4],"type":"read_ok"}}
+2026/10/06 14:59:41 Received {c10 n0 {"type":"read","msg_id":34}}
+2026/10/06 14:59:41 Sent {"src":"n0","dest":"c10","body":{"in_reply_to":34,"messages":[10,25,32,37,38,46,18,36,42,43,47,4,8,5,7,11,15,22,39],"type":"read_ok"}}
+2026/10/06 14:59:41 Received {c10 n0 {"type":"read","msg_id":35}}
+2026/10/06 14:59:41 Sent {"src":"n0","dest":"c10","body":{"in_reply_to":35,"messages":[25,32,37,38,46,18,36,42,43,47,4,8,5,7,11,15,22,39,10],"type":"read_ok"}}
+2026/10/06 14:59:41 Received {c10 n0 {"type":"read","msg_id":36}}
+2026/10/06 14:59:41 Sent {"src":"n0","dest":"c10","body":{"in_reply_to":36,"messages":[5,7,11,15,22,39,10,25,32,37,38,46,18,36,42,43,47,4,8],"type":"read_ok"}}
+2026/10/06 14:59:41 Received {c10 n0 {"type":"broadcast","message":50,"msg_id":37}}
+2026/10/06 14:59:41 Sent {"src":"n0","dest":"c10","body":{"in_reply_to":37,"type":"broadcast_ok"}}
+2026/10/06 14:59:42 Received {c10 n0 {"type":"broadcast","message":54,"msg_id":38}}
+2026/10/06 14:59:42 Sent {"src":"n0","dest":"c10","body":{"in_reply_to":38,"type":"broadcast_ok"}}
+2026/10/06 14:59:42 Received {c10 n0 {"type":"broadcast","message":55,"msg_id":39}}
+2026/10/06 14:59:42 Sent {"src":"n0","dest":"c10","body":{"in_reply_to":39,"type":"broadcast_ok"}}
+2026/10/06 14:59:43 Received {c10 n0 {"type":"broadcast","message":57,"msg_id":40}}
+2026/10/06 14:59:43 Sent {"src":"n0","dest":"c10","body":{"in_reply_to":40,"type":"broadcast_ok"}}
+2026/10/06 14:59:43 Received {c10 n0 {"type":"read","msg_id":41}}
+2026/10/06 14:59:43 Sent {"src":"n0","dest":"c10","body":{"in_reply_to":41,"messages":[32,37,38,46,18,36,42,43,47,57,4,8,50,54,55,5,7,11,15,22,39,10,25],"type":"read_ok"}}
+2026/10/06 14:59:43 Received {c10 n0 {"type":"read","msg_id":42}}
+2026/10/06 14:59:43 Sent {"src":"n0","dest":"c10","body":{"in_reply_to":42,"messages":[10,25,32,37,38,46,18,36,42,43,47,57,4,8,50,54,55,5,7,11,15,22,39],"type":"read_ok"}}
+2026/10/06 14:59:43 Received {c10 n0 {"type":"read","msg_id":43}}
+2026/10/06 14:59:43 Sent {"src":"n0","dest":"c10","body":{"in_reply_to":43,"messages":[18,36,42,43,47,57,4,8,50,54,55,5,7,11,15,22,39,10,25,32,37,38,46],"type":"read_ok"}}
+2026/10/06 14:59:44 Received {c10 n0 {"type":"broadcast","message":60,"msg_id":44}}
+2026/10/06 14:59:44 Sent {"src":"n0","dest":"c10","body":{"in_reply_to":44,"type":"broadcast_ok"}}
+2026/10/06 14:59:44 Received {c10 n0 {"type":"read","msg_id":45}}
+2026/10/06 14:59:44 Sent {"src":"n0","dest":"c10","body":{"in_reply_to":45,"messages":[47,57,4,8,50,54,55,5,7,11,15,22,39,60,10,25,32,37,38,46,18,36,42,43],"type":"read_ok"}}
+2026/10/06 14:59:44 Received {c10 n0 {"type":"broadcast","message":63,"msg_id":46}}
+2026/10/06 14:59:44 Sent {"src":"n0","dest":"c10","body":{"in_reply_to":46,"type":"broadcast_ok"}}
+2026/10/06 14:59:45 Received {c10 n0 {"type":"read","msg_id":47}}
+2026/10/06 14:59:45 Sent {"src":"n0","dest":"c10","body":{"in_reply_to":47,"messages":[36,42,43,47,57,4,8,50,54,55,5,7,11,15,22,39,60,10,25,32,37,38,46,63,18],"type":"read_ok"}}
+2026/10/06 14:59:45 Received {c10 n0 {"type":"read","msg_id":48}}
+2026/10/06 14:59:45 Sent {"src":"n0","dest":"c10","body":{"in_reply_to":48,"messages":[4,8,50,54,55,5,7,11,15,22,39,60,10,25,32,37,38,46,63,18,36,42,43,47,57],"type":"read_ok"}}
+2026/10/06 14:59:45 Received {c10 n0 {"type":"broadcast","message":66,"msg_id":49}}
+2026/10/06 14:59:45 Sent {"src":"n0","dest":"c10","body":{"in_reply_to":49,"type":"broadcast_ok"}}
+2026/10/06 14:59:46 Received {c10 n0 {"type":"read","msg_id":50}}
+2026/10/06 14:59:46 Sent {"src":"n0","dest":"c10","body":{"in_reply_to":50,"messages":[43,47,57,4,8,50,54,55,5,7,11,15,22,39,60,66,10,25,32,37,38,46,63,18,36,42],"type":"read_ok"}}
+2026/10/06 14:59:46 Received {c10 n0 {"type":"read","msg_id":51}}
+2026/10/06 14:59:46 Sent {"src":"n0","dest":"c10","body":{"in_reply_to":51,"messages":[39,60,66,10,25,32,37,38,46,63,18,36,42,43,47,57,4,8,50,54,55,5,7,11,15,22],"type":"read_ok"}}
+2026/10/06 14:59:46 Received {c10 n0 {"type":"broadcast","message":71,"msg_id":52}}
+2026/10/06 14:59:46 Sent {"src":"n0","dest":"c10","body":{"in_reply_to":52,"type":"broadcast_ok"}}
+2026/10/06 14:59:46 Received {c10 n0 {"type":"broadcast","message":72,"msg_id":53}}
+2026/10/06 14:59:46 Sent {"src":"n0","dest":"c10","body":{"in_reply_to":53,"type":"broadcast_ok"}}
+2026/10/06 14:59:47 Received {c10 n0 {"type":"broadcast","message":76,"msg_id":54}}
+2026/10/06 14:59:47 Sent {"src":"n0","dest":"c10","body":{"in_reply_to":54,"type":"broadcast_ok"}}
+2026/10/06 14:59:47 Received {c10 n0 {"type":"read","msg_id":55}}
+2026/10/06 14:59:47 Sent {"src":"n0","dest":"c10","body":{"in_reply_to":55,"messages":[4,8,55,11,22,60,66,72,32,38,46,63,18,36,42,43,57,71,50,54,5,7,15,39,76,10,25,37,47],"type":"read_ok"}}
+2026/10/06 14:59:47 Received {c10 n0 {"type":"read","msg_id":56}}
+2026/10/06 14:59:47 Sent {"src":"n0","dest":"c10","body":{"in_reply_to":56,"messages":[39,76,10,25,37,47,4,8,55,11,22,60,66,72,32,38,46,63,18,36,42,43,57,71,50,54,5,7,15],"type":"read_ok"}}
+2026/10/06 14:59:48 Received {c10 n0 {"type":"broadcast","message":81,"msg_id":57}}
+2026/10/06 14:59:48 Sent {"src":"n0","dest":"c10","body":{"in_reply_to":57,"type":"broadcast_ok"}}
+2026/10/06 14:59:48 Received {c10 n0 {"type":"broadcast","message":82,"msg_id":58}}
+2026/10/06 14:59:48 Sent {"src":"n0","dest":"c10","body":{"in_reply_to":58,"type":"broadcast_ok"}}
+2026/10/06 14:59:48 Received {c10 n0 {"type":"read","msg_id":59}}
+2026/10/06 14:59:48 Sent {"src":"n0","dest":"c10","body":{"in_reply_to":59,"messages":[10,25,37,47,4,8,55,11,22,60,66,72,32,38,46,63,82,18,36,42,43,57,71,50,54,81,5,7,15,39,76],"type":"read_ok"}}
+2026/10/06 14:59:49 Received {c10 n0 {"type":"broadcast","message":84,"msg_id":60}}
+2026/10/06 14:59:49 Sent {"src":"n0","dest":"c10","body":{"in_reply_to":60,"type":"broadcast_ok"}}
+2026/10/06 14:59:49 Received {c10 n0 {"type":"broadcast","message":86,"msg_id":61}}
+2026/10/06 14:59:49 Sent {"src":"n0","dest":"c10","body":{"in_reply_to":61,"type":"broadcast_ok"}}
+2026/10/06 14:59:49 Received {c10 n0 {"type":"read","msg_id":62}}
+2026/10/06 14:59:49 Sent {"src":"n0","dest":"c10","body":{"in_reply_to":62,"messages":[18,36,42,43,57,71,84,50,54,81,5,7,15,39,76,10,25,37,47,4,8,55,86,11,22,60,66,72,32,38,46,63,82],"type":"read_ok"}}
+2026/10/06 14:59:49 Received {c10 n0 {"type":"read","msg_id":63}}
+2026/10/06 14:59:49 Sent {"src":"n0","dest":"c10","body":{"in_reply_to":63,"messages":[4,8,55,86,11,22,60,66,72,32,38,46,63,82,18,36,42,43,57,71,84,50,54,81,5,7,15,39,76,10,25,37,47],"type":"read_ok"}}
+2026/10/06 14:59:50 Received {c10 n0 {"type":"read","msg_id":64}}
+2026/10/06 14:59:50 Sent {"src":"n0","dest":"c10","body":{"in_reply_to":64,"messages":[50,54,81,5,7,15,39,76,10,25,37,47,4,8,55,86,11,22,60,66,72,32,38,46,63,82,18,36,42,43,57,71,84],"type":"read_ok"}}
+2026/10/06 14:59:50 Received {c10 n0 {"type":"read","msg_id":65}}
+2026/10/06 14:59:50 Sent {"src":"n0","dest":"c10","body":{"in_reply_to":65,"messages":[50,54,81,5,7,15,39,76,10,25,37,47,4,8,55,86,11,22,60,66,72,32,38,46,63,82,18,36,42,43,57,71,84],"type":"read_ok"}}
+2026/10/06 14:59:50 Received {c10 n0 {"type":"broadcast","message":91,"msg_id":66}}
+2026/10/06 14:59:50 Sent {"src":"n0","dest":"c10","body":{"in_reply_to":66,"type":"broadcast_ok"}}
+2026/10/06 14:59:50 Received {c10 n0 {"type":"broadcast","message":92,"msg_id":67}}
+2026/10/06 14:59:50 Sent {"src":"n0","dest":"c10","body":{"in_reply_to":67,"type":"broadcast_ok"}}
+2026/10/06 14:59:50 Received {c10 n0 {"type":"read","msg_id":68}}
+2026/10/06 14:59:50 Sent {"src":"n0","dest":"c10","body":{"in_reply_to":68,"messages":[47,91,4,8,55,86,11,22,60,66,72,92,32,38,46,63,82,18,36,42,43,57,71,84,50,54,81,5,7,15,39,76,10,25,37],"type":"read_ok"}}
+2026/10/06 15:00:01 Received {c10 n0 {"type":"read","msg_id":69}}
+2026/10/06 15:00:01 Sent {"src":"n0","dest":"c10","body":{"in_reply_to":69,"messages":[11,22,60,66,72,92,32,38,46,63,82,18,36,42,43,57,71,84,50,54,81,5,7,15,39,76,10,25,37,47,91,4,8,55,86],"type":"read_ok"}}

@@ -1,0 +1,863 @@
+2026-10-06 14:26:57,814{GMT}	INFO	[jepsen test runner] jepsen.core: Test version 05feed1f1a66289313f0d55c9a0ae8c7eca279e5 (plus uncommitted changes)
+2026-10-06 14:26:57,815{GMT}	INFO	[jepsen test runner] jepsen.core: Command line:
+lein run test -w broadcast --bin /home/morgankim/go/bin/maelstrom-broadcast --node-count 5 --time-limit 20 --rate 10
+2026-10-06 14:26:57,949{GMT}	INFO	[jepsen test runner] jepsen.core: Running test:
+{:args []
+ :remote
+ #jepsen.control.retry.Remote{:remote #jepsen.control.scp.Remote{:cmd-remote #jepsen.control.sshj.SSHJRemote{:concurrency-limit 6,
+                                                                                                             :conn-spec nil,
+                                                                                                             :client nil,
+                                                                                                             :semaphore nil},
+                                                                 :conn-spec nil},
+                              :conn nil}
+ :log-net-send false
+ :node-count 5
+ :availability nil
+ :max-txn-length 4
+ :concurrency 5
+ :db
+ #object[maelstrom.db$db$reify__16142
+         "0x3022287e"
+         "maelstrom.db$db$reify__16142@3022287e"]
+ :max-writes-per-key 16
+ :leave-db-running? false
+ :name "broadcast"
+ :logging-json? false
+ :start-time
+ #object[org.joda.time.DateTime "0x214738c1" "2026-10-06T14:26:57.773-07:00"]
+ :nemesis-interval 10
+ :net
+ #object[maelstrom.net$jepsen_net$reify__15251
+         "0x623dc959"
+         "maelstrom.net$jepsen_net$reify__15251@623dc959"]
+ :client
+ #object[maelstrom.workload.broadcast$client$reify__16644
+         "0x7aac05e2"
+         "maelstrom.workload.broadcast$client$reify__16644@7aac05e2"]
+ :barrier
+ #object[java.util.concurrent.CyclicBarrier
+         "0x469caf69"
+         "java.util.concurrent.CyclicBarrier@469caf69"]
+ :log-stderr false
+ :pure-generators true
+ :ssh {:dummy? true}
+ :rate 10.0
+ :checker
+ #object[jepsen.checker$compose$reify__11881
+         "0x5e05064b"
+         "jepsen.checker$compose$reify__11881@5e05064b"]
+ :argv
+ ("test"
+  "-w"
+  "broadcast"
+  "--bin"
+  "/home/morgankim/go/bin/maelstrom-broadcast"
+  "--node-count"
+  "5"
+  "--time-limit"
+  "20"
+  "--rate"
+  "10")
+ :nemesis
+ (jepsen.nemesis.ReflCompose
+  {:fm {:start-partition 0,
+        :stop-partition 0,
+        :kill 1,
+        :start 1,
+        :pause 1,
+        :resume 1},
+   :nemeses [#unprintable "jepsen.nemesis.combined$partition_nemesis$reify__16416@527e6bd3"
+             #unprintable "jepsen.nemesis.combined$db_nemesis$reify__16397@4867e76b"]})
+ :nodes ["n0" "n1" "n2" "n3" "n4"]
+ :test-count 1
+ :latency {:mean 0, :dist :constant}
+ :bin "/home/morgankim/go/bin/maelstrom-broadcast"
+ :generator
+ ((jepsen.generator.Synchronize
+   {:gen (jepsen.generator.TimeLimit
+          {:limit 20000000000,
+           :cutoff nil,
+           :gen (jepsen.generator.Any
+                 {:gens [(jepsen.generator.OnThreads
+                          {:f #{:nemesis},
+                           :context-filter #object[jepsen.generator.context$make_thread_filter$lazy_filter__9167
+                                                   "0x6b28d4e4"
+                                                   "jepsen.generator.context$make_thread_filter$lazy_filter__9167@6b28d4e4"],
+                           :gen nil})
+                         (jepsen.generator.OnThreads
+                          {:f #jepsen.generator.context.AllBut{:element :nemesis},
+                           :context-filter #object[jepsen.generator.context$make_thread_filter$lazy_filter__9167
+                                                   "0x41cfcbb5"
+                                                   "jepsen.generator.context$make_thread_filter$lazy_filter__9167@41cfcbb5"],
+                           :gen (jepsen.generator.Stagger
+                                 {:dt 200000000,
+                                  :next-time nil,
+                                  :gen (jepsen.generator.Mix
+                                        {:i 0,
+                                         :gens [({:f :broadcast, :value 0}
+                                                 {:f :broadcast, :value 1}
+                                                 {:f :broadcast, :value 2}
+                                                 {:f :broadcast, :value 3}
+                                                 {:f :broadcast, :value 4}
+                                                 {:f :broadcast, :value 5}
+                                                 {:f :broadcast, :value 6}
+                                                 {:f :broadcast, :value 7}
+                                                 ...)
+                                                ({:f :read}
+                                                 {:f :read}
+                                                 {:f :read}
+                                                 {:f :read}
+                                                 {:f :read}
+                                                 {:f :read}
+                                                 {:f :read}
+                                                 {:f :read}
+                                                 ...)]})})})]})})})
+  (jepsen.generator.Synchronize
+   {:gen (jepsen.generator.OnThreads
+          {:f #{:nemesis},
+           :context-filter #object[jepsen.generator.context$make_thread_filter$lazy_filter__9167
+                                   "0x3b42d7df"
+                                   "jepsen.generator.context$make_thread_filter$lazy_filter__9167@3b42d7df"],
+           :gen ()})})
+  (jepsen.generator.Synchronize
+   {:gen {:type :log, :value "Waiting for recovery..."}})
+  (jepsen.generator.Synchronize {:gen {:type :sleep, :value 10}})
+  (jepsen.generator.Synchronize
+   {:gen (jepsen.generator.OnThreads
+          {:f #jepsen.generator.context.AllBut{:element :nemesis},
+           :context-filter #object[jepsen.generator.context$make_thread_filter$lazy_filter__9167
+                                   "0x1660bba7"
+                                   "jepsen.generator.context$make_thread_filter$lazy_filter__9167@1660bba7"],
+           :gen (jepsen.generator.EachThread
+                 {:fresh-gen {:f :read, :final? true},
+                  :context-filters #object[clojure.core$promise$reify__8591
+                                           "0x29cd48bd"
+                                           {:status :pending, :val nil}],
+                  :gens {}})})}))
+ :log-net-recv false
+ :os
+ #object[maelstrom.net$jepsen_os$reify__15254
+         "0x49e3b86b"
+         "maelstrom.net$jepsen_os$reify__15254@49e3b86b"]
+ :time-limit 20
+ :workload :broadcast
+ :consistency-models [:strict-serializable]
+ :topology :grid}
+
+2026-10-06 14:27:00,053{GMT}	INFO	[jepsen node n0] maelstrom.net: Starting Maelstrom network
+2026-10-06 14:27:00,055{GMT}	INFO	[jepsen test runner] jepsen.db: Tearing down DB
+2026-10-06 14:27:00,057{GMT}	INFO	[jepsen test runner] jepsen.db: Setting up DB
+2026-10-06 14:27:00,058{GMT}	INFO	[jepsen node n2] maelstrom.db: Setting up n2
+2026-10-06 14:27:00,058{GMT}	INFO	[jepsen node n3] maelstrom.db: Setting up n3
+2026-10-06 14:27:00,058{GMT}	INFO	[jepsen node n1] maelstrom.db: Setting up n1
+2026-10-06 14:27:00,058{GMT}	INFO	[jepsen node n4] maelstrom.db: Setting up n4
+2026-10-06 14:27:00,059{GMT}	INFO	[jepsen node n3] maelstrom.process: launching /home/morgankim/go/bin/maelstrom-broadcast []
+2026-10-06 14:27:00,059{GMT}	INFO	[jepsen node n2] maelstrom.process: launching /home/morgankim/go/bin/maelstrom-broadcast []
+2026-10-06 14:27:00,059{GMT}	INFO	[jepsen node n1] maelstrom.process: launching /home/morgankim/go/bin/maelstrom-broadcast []
+2026-10-06 14:27:00,059{GMT}	INFO	[jepsen node n4] maelstrom.process: launching /home/morgankim/go/bin/maelstrom-broadcast []
+2026-10-06 14:27:00,060{GMT}	INFO	[jepsen node n0] maelstrom.service: Starting services: (lin-kv lin-tso lww-kv seq-kv)
+2026-10-06 14:27:00,062{GMT}	INFO	[jepsen node n0] maelstrom.db: Setting up n0
+2026-10-06 14:27:00,062{GMT}	INFO	[jepsen node n0] maelstrom.process: launching /home/morgankim/go/bin/maelstrom-broadcast []
+2026-10-06 14:27:00,089{GMT}	INFO	[jepsen test runner] jepsen.core: Relative time begins now
+2026-10-06 14:27:00,108{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:invoke	:broadcast	0
+2026-10-06 14:27:00,112{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:ok	:broadcast	0
+2026-10-06 14:27:00,227{GMT}	INFO	[jepsen worker 1] jepsen.util: 1	:invoke	:broadcast	1
+2026-10-06 14:27:00,231{GMT}	INFO	[jepsen worker 1] jepsen.util: 1	:ok	:broadcast	1
+2026-10-06 14:27:00,414{GMT}	INFO	[jepsen worker 2] jepsen.util: 2	:invoke	:broadcast	2
+2026-10-06 14:27:00,418{GMT}	INFO	[jepsen worker 2] jepsen.util: 2	:ok	:broadcast	2
+2026-10-06 14:27:00,516{GMT}	INFO	[jepsen worker 3] jepsen.util: 3	:invoke	:broadcast	3
+2026-10-06 14:27:00,521{GMT}	INFO	[jepsen worker 3] jepsen.util: 3	:ok	:broadcast	3
+2026-10-06 14:27:00,593{GMT}	INFO	[jepsen worker 4] jepsen.util: 4	:invoke	:broadcast	4
+2026-10-06 14:27:00,597{GMT}	INFO	[jepsen worker 4] jepsen.util: 4	:ok	:broadcast	4
+2026-10-06 14:27:00,650{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:invoke	:broadcast	5
+2026-10-06 14:27:00,653{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:ok	:broadcast	5
+2026-10-06 14:27:00,754{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:invoke	:broadcast	6
+2026-10-06 14:27:00,756{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:ok	:broadcast	6
+2026-10-06 14:27:00,906{GMT}	INFO	[jepsen worker 1] jepsen.util: 1	:invoke	:read	nil
+2026-10-06 14:27:00,909{GMT}	INFO	[jepsen worker 1] jepsen.util: 1	:ok	:read	[1]
+2026-10-06 14:27:01,051{GMT}	INFO	[jepsen worker 2] jepsen.util: 2	:invoke	:broadcast	7
+2026-10-06 14:27:01,054{GMT}	INFO	[jepsen worker 2] jepsen.util: 2	:ok	:broadcast	7
+2026-10-06 14:27:01,068{GMT}	INFO	[jepsen worker 3] jepsen.util: 3	:invoke	:read	nil
+2026-10-06 14:27:01,070{GMT}	INFO	[jepsen worker 3] jepsen.util: 3	:ok	:read	[3]
+2026-10-06 14:27:01,094{GMT}	INFO	[jepsen worker 4] jepsen.util: 4	:invoke	:read	nil
+2026-10-06 14:27:01,097{GMT}	INFO	[jepsen worker 4] jepsen.util: 4	:ok	:read	[4]
+2026-10-06 14:27:01,114{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:invoke	:read	nil
+2026-10-06 14:27:01,117{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:ok	:read	[0 5 6]
+2026-10-06 14:27:01,142{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:invoke	:read	nil
+2026-10-06 14:27:01,145{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:ok	:read	[6 0 5]
+2026-10-06 14:27:01,191{GMT}	INFO	[jepsen worker 1] jepsen.util: 1	:invoke	:read	nil
+2026-10-06 14:27:01,194{GMT}	INFO	[jepsen worker 1] jepsen.util: 1	:ok	:read	[1]
+2026-10-06 14:27:01,351{GMT}	INFO	[jepsen worker 2] jepsen.util: 2	:invoke	:read	nil
+2026-10-06 14:27:01,354{GMT}	INFO	[jepsen worker 2] jepsen.util: 2	:ok	:read	[2 7]
+2026-10-06 14:27:01,440{GMT}	INFO	[jepsen worker 3] jepsen.util: 3	:invoke	:read	nil
+2026-10-06 14:27:01,443{GMT}	INFO	[jepsen worker 3] jepsen.util: 3	:ok	:read	[3]
+2026-10-06 14:27:01,521{GMT}	INFO	[jepsen worker 4] jepsen.util: 4	:invoke	:read	nil
+2026-10-06 14:27:01,524{GMT}	INFO	[jepsen worker 4] jepsen.util: 4	:ok	:read	[4]
+2026-10-06 14:27:01,639{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:invoke	:broadcast	8
+2026-10-06 14:27:01,641{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:ok	:broadcast	8
+2026-10-06 14:27:01,828{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:invoke	:broadcast	9
+2026-10-06 14:27:01,831{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:ok	:broadcast	9
+2026-10-06 14:27:01,838{GMT}	INFO	[jepsen worker 1] jepsen.util: 1	:invoke	:read	nil
+2026-10-06 14:27:01,842{GMT}	INFO	[jepsen worker 1] jepsen.util: 1	:ok	:read	[1]
+2026-10-06 14:27:01,996{GMT}	INFO	[jepsen worker 2] jepsen.util: 2	:invoke	:broadcast	10
+2026-10-06 14:27:01,999{GMT}	INFO	[jepsen worker 2] jepsen.util: 2	:ok	:broadcast	10
+2026-10-06 14:27:02,130{GMT}	INFO	[jepsen worker 3] jepsen.util: 3	:invoke	:broadcast	11
+2026-10-06 14:27:02,133{GMT}	INFO	[jepsen worker 3] jepsen.util: 3	:ok	:broadcast	11
+2026-10-06 14:27:02,160{GMT}	INFO	[jepsen worker 4] jepsen.util: 4	:invoke	:read	nil
+2026-10-06 14:27:02,162{GMT}	INFO	[jepsen worker 4] jepsen.util: 4	:ok	:read	[4]
+2026-10-06 14:27:02,333{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:invoke	:read	nil
+2026-10-06 14:27:02,336{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:ok	:read	[5 6 8 9 0]
+2026-10-06 14:27:02,510{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:invoke	:broadcast	12
+2026-10-06 14:27:02,513{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:ok	:broadcast	12
+2026-10-06 14:27:02,549{GMT}	INFO	[jepsen worker 1] jepsen.util: 1	:invoke	:broadcast	13
+2026-10-06 14:27:02,552{GMT}	INFO	[jepsen worker 1] jepsen.util: 1	:ok	:broadcast	13
+2026-10-06 14:27:02,559{GMT}	INFO	[jepsen worker 2] jepsen.util: 2	:invoke	:broadcast	14
+2026-10-06 14:27:02,561{GMT}	INFO	[jepsen worker 2] jepsen.util: 2	:ok	:broadcast	14
+2026-10-06 14:27:02,562{GMT}	INFO	[jepsen worker 3] jepsen.util: 3	:invoke	:read	nil
+2026-10-06 14:27:02,565{GMT}	INFO	[jepsen worker 3] jepsen.util: 3	:ok	:read	[3 11]
+2026-10-06 14:27:02,707{GMT}	INFO	[jepsen worker 4] jepsen.util: 4	:invoke	:read	nil
+2026-10-06 14:27:02,710{GMT}	INFO	[jepsen worker 4] jepsen.util: 4	:ok	:read	[4]
+2026-10-06 14:27:02,839{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:invoke	:read	nil
+2026-10-06 14:27:02,841{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:ok	:read	[12 0 5 6 8 9]
+2026-10-06 14:27:02,965{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:invoke	:broadcast	15
+2026-10-06 14:27:02,967{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:ok	:broadcast	15
+2026-10-06 14:27:03,087{GMT}	INFO	[jepsen worker 1] jepsen.util: 1	:invoke	:read	nil
+2026-10-06 14:27:03,090{GMT}	INFO	[jepsen worker 1] jepsen.util: 1	:ok	:read	[1 13]
+2026-10-06 14:27:03,105{GMT}	INFO	[jepsen worker 2] jepsen.util: 2	:invoke	:read	nil
+2026-10-06 14:27:03,107{GMT}	INFO	[jepsen worker 2] jepsen.util: 2	:ok	:read	[7 10 14 2]
+2026-10-06 14:27:03,160{GMT}	INFO	[jepsen worker 3] jepsen.util: 3	:invoke	:broadcast	16
+2026-10-06 14:27:03,162{GMT}	INFO	[jepsen worker 3] jepsen.util: 3	:ok	:broadcast	16
+2026-10-06 14:27:03,291{GMT}	INFO	[jepsen worker 4] jepsen.util: 4	:invoke	:read	nil
+2026-10-06 14:27:03,293{GMT}	INFO	[jepsen worker 4] jepsen.util: 4	:ok	:read	[4]
+2026-10-06 14:27:03,440{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:invoke	:read	nil
+2026-10-06 14:27:03,443{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:ok	:read	[12 15 0 5 6 8 9]
+2026-10-06 14:27:03,469{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:invoke	:read	nil
+2026-10-06 14:27:03,471{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:ok	:read	[15 0 5 6 8 9 12]
+2026-10-06 14:27:03,493{GMT}	INFO	[jepsen worker 1] jepsen.util: 1	:invoke	:read	nil
+2026-10-06 14:27:03,496{GMT}	INFO	[jepsen worker 1] jepsen.util: 1	:ok	:read	[1 13]
+2026-10-06 14:27:03,570{GMT}	INFO	[jepsen worker 2] jepsen.util: 2	:invoke	:read	nil
+2026-10-06 14:27:03,572{GMT}	INFO	[jepsen worker 2] jepsen.util: 2	:ok	:read	[2 7 10 14]
+2026-10-06 14:27:03,736{GMT}	INFO	[jepsen worker 3] jepsen.util: 3	:invoke	:broadcast	17
+2026-10-06 14:27:03,738{GMT}	INFO	[jepsen worker 3] jepsen.util: 3	:ok	:broadcast	17
+2026-10-06 14:27:03,789{GMT}	INFO	[jepsen worker 4] jepsen.util: 4	:invoke	:read	nil
+2026-10-06 14:27:03,791{GMT}	INFO	[jepsen worker 4] jepsen.util: 4	:ok	:read	[4]
+2026-10-06 14:27:03,897{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:invoke	:read	nil
+2026-10-06 14:27:03,899{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:ok	:read	[0 5 6 8 9 12 15]
+2026-10-06 14:27:04,011{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:invoke	:read	nil
+2026-10-06 14:27:04,014{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:ok	:read	[15 0 5 6 8 9 12]
+2026-10-06 14:27:04,025{GMT}	INFO	[jepsen worker 1] jepsen.util: 1	:invoke	:read	nil
+2026-10-06 14:27:04,027{GMT}	INFO	[jepsen worker 1] jepsen.util: 1	:ok	:read	[1 13]
+2026-10-06 14:27:04,049{GMT}	INFO	[jepsen worker 2] jepsen.util: 2	:invoke	:broadcast	18
+2026-10-06 14:27:04,051{GMT}	INFO	[jepsen worker 2] jepsen.util: 2	:ok	:broadcast	18
+2026-10-06 14:27:04,212{GMT}	INFO	[jepsen worker 3] jepsen.util: 3	:invoke	:broadcast	19
+2026-10-06 14:27:04,214{GMT}	INFO	[jepsen worker 3] jepsen.util: 3	:ok	:broadcast	19
+2026-10-06 14:27:04,341{GMT}	INFO	[jepsen worker 4] jepsen.util: 4	:invoke	:read	nil
+2026-10-06 14:27:04,344{GMT}	INFO	[jepsen worker 4] jepsen.util: 4	:ok	:read	[4]
+2026-10-06 14:27:04,399{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:invoke	:broadcast	20
+2026-10-06 14:27:04,401{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:ok	:broadcast	20
+2026-10-06 14:27:04,403{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:invoke	:read	nil
+2026-10-06 14:27:04,405{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:ok	:read	[20 0 5 6 8 9 12 15]
+2026-10-06 14:27:04,417{GMT}	INFO	[jepsen worker 1] jepsen.util: 1	:invoke	:read	nil
+2026-10-06 14:27:04,419{GMT}	INFO	[jepsen worker 1] jepsen.util: 1	:ok	:read	[1 13]
+2026-10-06 14:27:04,462{GMT}	INFO	[jepsen worker 2] jepsen.util: 2	:invoke	:read	nil
+2026-10-06 14:27:04,464{GMT}	INFO	[jepsen worker 2] jepsen.util: 2	:ok	:read	[2 7 10 14 18]
+2026-10-06 14:27:04,649{GMT}	INFO	[jepsen worker 3] jepsen.util: 3	:invoke	:broadcast	21
+2026-10-06 14:27:04,651{GMT}	INFO	[jepsen worker 3] jepsen.util: 3	:ok	:broadcast	21
+2026-10-06 14:27:04,761{GMT}	INFO	[jepsen worker 4] jepsen.util: 4	:invoke	:read	nil
+2026-10-06 14:27:04,764{GMT}	INFO	[jepsen worker 4] jepsen.util: 4	:ok	:read	[4]
+2026-10-06 14:27:04,841{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:invoke	:broadcast	22
+2026-10-06 14:27:04,844{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:ok	:broadcast	22
+2026-10-06 14:27:05,000{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:invoke	:read	nil
+2026-10-06 14:27:05,003{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:ok	:read	[0 5 6 15 20 8 9 12 22]
+2026-10-06 14:27:05,076{GMT}	INFO	[jepsen worker 1] jepsen.util: 1	:invoke	:broadcast	23
+2026-10-06 14:27:05,078{GMT}	INFO	[jepsen worker 1] jepsen.util: 1	:ok	:broadcast	23
+2026-10-06 14:27:05,153{GMT}	INFO	[jepsen worker 2] jepsen.util: 2	:invoke	:read	nil
+2026-10-06 14:27:05,155{GMT}	INFO	[jepsen worker 2] jepsen.util: 2	:ok	:read	[18 2 7 10 14]
+2026-10-06 14:27:05,219{GMT}	INFO	[jepsen worker 3] jepsen.util: 3	:invoke	:broadcast	24
+2026-10-06 14:27:05,221{GMT}	INFO	[jepsen worker 3] jepsen.util: 3	:ok	:broadcast	24
+2026-10-06 14:27:05,358{GMT}	INFO	[jepsen worker 4] jepsen.util: 4	:invoke	:read	nil
+2026-10-06 14:27:05,360{GMT}	INFO	[jepsen worker 4] jepsen.util: 4	:ok	:read	[4]
+2026-10-06 14:27:05,448{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:invoke	:read	nil
+2026-10-06 14:27:05,450{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:ok	:read	[0 5 6 15 20 8 9 12 22]
+2026-10-06 14:27:05,515{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:invoke	:read	nil
+2026-10-06 14:27:05,517{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:ok	:read	[0 5 6 15 20 8 9 12 22]
+2026-10-06 14:27:05,600{GMT}	INFO	[jepsen worker 1] jepsen.util: 1	:invoke	:read	nil
+2026-10-06 14:27:05,603{GMT}	INFO	[jepsen worker 1] jepsen.util: 1	:ok	:read	[1 13 23]
+2026-10-06 14:27:05,673{GMT}	INFO	[jepsen worker 2] jepsen.util: 2	:invoke	:broadcast	25
+2026-10-06 14:27:05,675{GMT}	INFO	[jepsen worker 2] jepsen.util: 2	:ok	:broadcast	25
+2026-10-06 14:27:05,711{GMT}	INFO	[jepsen worker 3] jepsen.util: 3	:invoke	:read	nil
+2026-10-06 14:27:05,714{GMT}	INFO	[jepsen worker 3] jepsen.util: 3	:ok	:read	[3 11 16 17 19 21 24]
+2026-10-06 14:27:05,867{GMT}	INFO	[jepsen worker 4] jepsen.util: 4	:invoke	:read	nil
+2026-10-06 14:27:05,870{GMT}	INFO	[jepsen worker 4] jepsen.util: 4	:ok	:read	[4]
+2026-10-06 14:27:05,913{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:invoke	:broadcast	26
+2026-10-06 14:27:05,915{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:ok	:broadcast	26
+2026-10-06 14:27:06,064{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:invoke	:read	nil
+2026-10-06 14:27:06,067{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:ok	:read	[0 5 6 15 20 8 9 12 22 26]
+2026-10-06 14:27:06,248{GMT}	INFO	[jepsen worker 1] jepsen.util: 1	:invoke	:broadcast	27
+2026-10-06 14:27:06,250{GMT}	INFO	[jepsen worker 1] jepsen.util: 1	:ok	:broadcast	27
+2026-10-06 14:27:06,290{GMT}	INFO	[jepsen worker 2] jepsen.util: 2	:invoke	:broadcast	28
+2026-10-06 14:27:06,292{GMT}	INFO	[jepsen worker 2] jepsen.util: 2	:ok	:broadcast	28
+2026-10-06 14:27:06,370{GMT}	INFO	[jepsen worker 3] jepsen.util: 3	:invoke	:broadcast	29
+2026-10-06 14:27:06,372{GMT}	INFO	[jepsen worker 3] jepsen.util: 3	:ok	:broadcast	29
+2026-10-06 14:27:06,392{GMT}	INFO	[jepsen worker 4] jepsen.util: 4	:invoke	:broadcast	30
+2026-10-06 14:27:06,393{GMT}	INFO	[jepsen worker 4] jepsen.util: 4	:ok	:broadcast	30
+2026-10-06 14:27:06,490{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:invoke	:read	nil
+2026-10-06 14:27:06,492{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:ok	:read	[0 5 6 15 20 8 9 12 22 26]
+2026-10-06 14:27:06,509{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:invoke	:read	nil
+2026-10-06 14:27:06,510{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:ok	:read	[0 5 6 15 20 8 9 12 22 26]
+2026-10-06 14:27:06,535{GMT}	INFO	[jepsen worker 1] jepsen.util: 1	:invoke	:read	nil
+2026-10-06 14:27:06,537{GMT}	INFO	[jepsen worker 1] jepsen.util: 1	:ok	:read	[27 1 13 23]
+2026-10-06 14:27:06,711{GMT}	INFO	[jepsen worker 2] jepsen.util: 2	:invoke	:broadcast	31
+2026-10-06 14:27:06,713{GMT}	INFO	[jepsen worker 2] jepsen.util: 2	:ok	:broadcast	31
+2026-10-06 14:27:06,881{GMT}	INFO	[jepsen worker 3] jepsen.util: 3	:invoke	:broadcast	32
+2026-10-06 14:27:06,883{GMT}	INFO	[jepsen worker 3] jepsen.util: 3	:ok	:broadcast	32
+2026-10-06 14:27:07,071{GMT}	INFO	[jepsen worker 4] jepsen.util: 4	:invoke	:broadcast	33
+2026-10-06 14:27:07,073{GMT}	INFO	[jepsen worker 4] jepsen.util: 4	:ok	:broadcast	33
+2026-10-06 14:27:07,232{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:invoke	:read	nil
+2026-10-06 14:27:07,234{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:ok	:read	[0 5 6 15 20 8 9 12 22 26]
+2026-10-06 14:27:07,431{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:invoke	:broadcast	34
+2026-10-06 14:27:07,432{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:ok	:broadcast	34
+2026-10-06 14:27:07,590{GMT}	INFO	[jepsen worker 1] jepsen.util: 1	:invoke	:broadcast	35
+2026-10-06 14:27:07,592{GMT}	INFO	[jepsen worker 1] jepsen.util: 1	:ok	:broadcast	35
+2026-10-06 14:27:07,731{GMT}	INFO	[jepsen worker 2] jepsen.util: 2	:invoke	:broadcast	36
+2026-10-06 14:27:07,733{GMT}	INFO	[jepsen worker 2] jepsen.util: 2	:ok	:broadcast	36
+2026-10-06 14:27:07,910{GMT}	INFO	[jepsen worker 3] jepsen.util: 3	:invoke	:read	nil
+2026-10-06 14:27:07,912{GMT}	INFO	[jepsen worker 3] jepsen.util: 3	:ok	:read	[3 11 17 19 21 29 16 24 32]
+2026-10-06 14:27:07,968{GMT}	INFO	[jepsen worker 4] jepsen.util: 4	:invoke	:read	nil
+2026-10-06 14:27:07,970{GMT}	INFO	[jepsen worker 4] jepsen.util: 4	:ok	:read	[4 30 33]
+2026-10-06 14:27:07,971{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:invoke	:read	nil
+2026-10-06 14:27:07,973{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:ok	:read	[12 22 26 0 5 6 15 20 34 8 9]
+2026-10-06 14:27:08,032{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:invoke	:broadcast	37
+2026-10-06 14:27:08,034{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:ok	:broadcast	37
+2026-10-06 14:27:08,058{GMT}	INFO	[jepsen worker 1] jepsen.util: 1	:invoke	:read	nil
+2026-10-06 14:27:08,060{GMT}	INFO	[jepsen worker 1] jepsen.util: 1	:ok	:read	[1 13 23 27 35]
+2026-10-06 14:27:08,110{GMT}	INFO	[jepsen worker 2] jepsen.util: 2	:invoke	:read	nil
+2026-10-06 14:27:08,112{GMT}	INFO	[jepsen worker 2] jepsen.util: 2	:ok	:read	[10 25 31 2 7 14 18 28 36]
+2026-10-06 14:27:08,185{GMT}	INFO	[jepsen worker 3] jepsen.util: 3	:invoke	:broadcast	38
+2026-10-06 14:27:08,187{GMT}	INFO	[jepsen worker 3] jepsen.util: 3	:ok	:broadcast	38
+2026-10-06 14:27:08,289{GMT}	INFO	[jepsen worker 4] jepsen.util: 4	:invoke	:read	nil
+2026-10-06 14:27:08,291{GMT}	INFO	[jepsen worker 4] jepsen.util: 4	:ok	:read	[4 30 33]
+2026-10-06 14:27:08,467{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:invoke	:read	nil
+2026-10-06 14:27:08,469{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:ok	:read	[26 37 0 5 6 15 20 34 8 9 12 22]
+2026-10-06 14:27:08,665{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:invoke	:read	nil
+2026-10-06 14:27:08,667{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:ok	:read	[20 34 8 9 12 22 26 37 0 5 6 15]
+2026-10-06 14:27:08,758{GMT}	INFO	[jepsen worker 1] jepsen.util: 1	:invoke	:broadcast	39
+2026-10-06 14:27:08,759{GMT}	INFO	[jepsen worker 1] jepsen.util: 1	:ok	:broadcast	39
+2026-10-06 14:27:08,772{GMT}	INFO	[jepsen worker 2] jepsen.util: 2	:invoke	:read	nil
+2026-10-06 14:27:08,774{GMT}	INFO	[jepsen worker 2] jepsen.util: 2	:ok	:read	[10 25 31 2 7 14 18 28 36]
+2026-10-06 14:27:08,951{GMT}	INFO	[jepsen worker 3] jepsen.util: 3	:invoke	:read	nil
+2026-10-06 14:27:08,953{GMT}	INFO	[jepsen worker 3] jepsen.util: 3	:ok	:read	[29 16 24 32 38 3 11 17 19 21]
+2026-10-06 14:27:09,035{GMT}	INFO	[jepsen worker 4] jepsen.util: 4	:invoke	:broadcast	40
+2026-10-06 14:27:09,037{GMT}	INFO	[jepsen worker 4] jepsen.util: 4	:ok	:broadcast	40
+2026-10-06 14:27:09,099{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:invoke	:broadcast	41
+2026-10-06 14:27:09,101{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:ok	:broadcast	41
+2026-10-06 14:27:09,294{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:invoke	:broadcast	42
+2026-10-06 14:27:09,296{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:ok	:broadcast	42
+2026-10-06 14:27:09,307{GMT}	INFO	[jepsen worker 1] jepsen.util: 1	:invoke	:broadcast	43
+2026-10-06 14:27:09,309{GMT}	INFO	[jepsen worker 1] jepsen.util: 1	:ok	:broadcast	43
+2026-10-06 14:27:09,464{GMT}	INFO	[jepsen worker 2] jepsen.util: 2	:invoke	:read	nil
+2026-10-06 14:27:09,466{GMT}	INFO	[jepsen worker 2] jepsen.util: 2	:ok	:read	[2 7 14 18 28 36 10 25 31]
+2026-10-06 14:27:09,572{GMT}	INFO	[jepsen worker 3] jepsen.util: 3	:invoke	:read	nil
+2026-10-06 14:27:09,574{GMT}	INFO	[jepsen worker 3] jepsen.util: 3	:ok	:read	[16 24 32 38 3 11 17 19 21 29]
+2026-10-06 14:27:09,595{GMT}	INFO	[jepsen worker 4] jepsen.util: 4	:invoke	:broadcast	44
+2026-10-06 14:27:09,596{GMT}	INFO	[jepsen worker 4] jepsen.util: 4	:ok	:broadcast	44
+2026-10-06 14:27:09,736{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:invoke	:broadcast	45
+2026-10-06 14:27:09,740{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:ok	:broadcast	45
+2026-10-06 14:27:09,803{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:invoke	:broadcast	46
+2026-10-06 14:27:09,805{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:ok	:broadcast	46
+2026-10-06 14:27:09,906{GMT}	INFO	[jepsen worker 1] jepsen.util: 1	:invoke	:broadcast	47
+2026-10-06 14:27:09,908{GMT}	INFO	[jepsen worker 1] jepsen.util: 1	:ok	:broadcast	47
+2026-10-06 14:27:09,927{GMT}	INFO	[jepsen worker 2] jepsen.util: 2	:invoke	:broadcast	48
+2026-10-06 14:27:09,929{GMT}	INFO	[jepsen worker 2] jepsen.util: 2	:ok	:broadcast	48
+2026-10-06 14:27:10,112{GMT}	INFO	[jepsen worker 3] jepsen.util: 3	:invoke	:broadcast	49
+2026-10-06 14:27:10,113{GMT}	INFO	[jepsen worker 3] jepsen.util: 3	:ok	:broadcast	49
+2026-10-06 14:27:10,177{GMT}	INFO	[jepsen worker 4] jepsen.util: 4	:invoke	:broadcast	50
+2026-10-06 14:27:10,179{GMT}	INFO	[jepsen worker 4] jepsen.util: 4	:ok	:broadcast	50
+2026-10-06 14:27:10,368{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:invoke	:read	nil
+2026-10-06 14:27:10,370{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:ok	:read	[9 12 22 45 0 5 15 42 46 8 26 37 41 6 20 34]
+2026-10-06 14:27:10,447{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:invoke	:read	nil
+2026-10-06 14:27:10,449{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:ok	:read	[45 0 5 15 42 46 8 26 37 41 6 20 34 9 12 22]
+2026-10-06 14:27:10,498{GMT}	INFO	[jepsen worker 1] jepsen.util: 1	:invoke	:broadcast	51
+2026-10-06 14:27:10,500{GMT}	INFO	[jepsen worker 1] jepsen.util: 1	:ok	:broadcast	51
+2026-10-06 14:27:10,541{GMT}	INFO	[jepsen worker 2] jepsen.util: 2	:invoke	:read	nil
+2026-10-06 14:27:10,543{GMT}	INFO	[jepsen worker 2] jepsen.util: 2	:ok	:read	[14 18 28 36 48 10 25 31 2 7]
+2026-10-06 14:27:10,683{GMT}	INFO	[jepsen worker 3] jepsen.util: 3	:invoke	:read	nil
+2026-10-06 14:27:10,685{GMT}	INFO	[jepsen worker 3] jepsen.util: 3	:ok	:read	[21 29 49 16 24 32 38 3 11 17 19]
+2026-10-06 14:27:10,795{GMT}	INFO	[jepsen worker 4] jepsen.util: 4	:invoke	:read	nil
+2026-10-06 14:27:10,797{GMT}	INFO	[jepsen worker 4] jepsen.util: 4	:ok	:read	[30 33 40 44 50 4]
+2026-10-06 14:27:10,916{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:invoke	:read	nil
+2026-10-06 14:27:10,918{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:ok	:read	[0 5 15 42 46 8 26 37 41 6 20 34 9 12 22 45]
+2026-10-06 14:27:10,944{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:invoke	:broadcast	52
+2026-10-06 14:27:10,945{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:ok	:broadcast	52
+2026-10-06 14:27:11,100{GMT}	INFO	[jepsen worker 1] jepsen.util: 1	:invoke	:read	nil
+2026-10-06 14:27:11,102{GMT}	INFO	[jepsen worker 1] jepsen.util: 1	:ok	:read	[1 27 35 47 51 13 23 39 43]
+2026-10-06 14:27:11,296{GMT}	INFO	[jepsen worker 2] jepsen.util: 2	:invoke	:broadcast	53
+2026-10-06 14:27:11,298{GMT}	INFO	[jepsen worker 2] jepsen.util: 2	:ok	:broadcast	53
+2026-10-06 14:27:11,371{GMT}	INFO	[jepsen worker 3] jepsen.util: 3	:invoke	:broadcast	54
+2026-10-06 14:27:11,373{GMT}	INFO	[jepsen worker 3] jepsen.util: 3	:ok	:broadcast	54
+2026-10-06 14:27:11,500{GMT}	INFO	[jepsen worker 4] jepsen.util: 4	:invoke	:broadcast	55
+2026-10-06 14:27:11,502{GMT}	INFO	[jepsen worker 4] jepsen.util: 4	:ok	:broadcast	55
+2026-10-06 14:27:11,616{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:invoke	:read	nil
+2026-10-06 14:27:11,618{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:ok	:read	[26 37 41 6 20 34 9 12 22 45 52 0 5 15 42 46 8]
+2026-10-06 14:27:11,739{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:invoke	:broadcast	56
+2026-10-06 14:27:11,741{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:ok	:broadcast	56
+2026-10-06 14:27:11,918{GMT}	INFO	[jepsen worker 1] jepsen.util: 1	:invoke	:broadcast	57
+2026-10-06 14:27:11,920{GMT}	INFO	[jepsen worker 1] jepsen.util: 1	:ok	:broadcast	57
+2026-10-06 14:27:12,045{GMT}	INFO	[jepsen worker 2] jepsen.util: 2	:invoke	:read	nil
+2026-10-06 14:27:12,047{GMT}	INFO	[jepsen worker 2] jepsen.util: 2	:ok	:read	[2 7 14 18 28 36 48 53 10 25 31]
+2026-10-06 14:27:12,145{GMT}	INFO	[jepsen worker 3] jepsen.util: 3	:invoke	:broadcast	58
+2026-10-06 14:27:12,146{GMT}	INFO	[jepsen worker 3] jepsen.util: 3	:ok	:broadcast	58
+2026-10-06 14:27:12,171{GMT}	INFO	[jepsen worker 4] jepsen.util: 4	:invoke	:broadcast	59
+2026-10-06 14:27:12,173{GMT}	INFO	[jepsen worker 4] jepsen.util: 4	:ok	:broadcast	59
+2026-10-06 14:27:12,184{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:invoke	:broadcast	60
+2026-10-06 14:27:12,185{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:ok	:broadcast	60
+2026-10-06 14:27:12,308{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:invoke	:broadcast	61
+2026-10-06 14:27:12,310{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:ok	:broadcast	61
+2026-10-06 14:27:12,444{GMT}	INFO	[jepsen worker 1] jepsen.util: 1	:invoke	:read	nil
+2026-10-06 14:27:12,446{GMT}	INFO	[jepsen worker 1] jepsen.util: 1	:ok	:read	[13 23 39 43 57 1 27 35 47 51]
+2026-10-06 14:27:12,493{GMT}	INFO	[jepsen worker 2] jepsen.util: 2	:invoke	:broadcast	62
+2026-10-06 14:27:12,494{GMT}	INFO	[jepsen worker 2] jepsen.util: 2	:ok	:broadcast	62
+2026-10-06 14:27:12,544{GMT}	INFO	[jepsen worker 3] jepsen.util: 3	:invoke	:broadcast	63
+2026-10-06 14:27:12,546{GMT}	INFO	[jepsen worker 3] jepsen.util: 3	:ok	:broadcast	63
+2026-10-06 14:27:12,578{GMT}	INFO	[jepsen worker 4] jepsen.util: 4	:invoke	:read	nil
+2026-10-06 14:27:12,579{GMT}	INFO	[jepsen worker 4] jepsen.util: 4	:ok	:read	[33 40 44 50 55 59 4 30]
+2026-10-06 14:27:12,583{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:invoke	:read	nil
+2026-10-06 14:27:12,584{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:ok	:read	[46 8 26 37 41 6 20 34 56 60 9 12 22 45 52 61 0 5 15 42]
+2026-10-06 14:27:12,640{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:invoke	:read	nil
+2026-10-06 14:27:12,642{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:ok	:read	[37 41 6 20 34 56 60 9 12 22 45 52 61 0 5 15 42 46 8 26]
+2026-10-06 14:27:12,741{GMT}	INFO	[jepsen worker 1] jepsen.util: 1	:invoke	:read	nil
+2026-10-06 14:27:12,743{GMT}	INFO	[jepsen worker 1] jepsen.util: 1	:ok	:read	[47 51 13 23 39 43 57 1 27 35]
+2026-10-06 14:27:12,865{GMT}	INFO	[jepsen worker 2] jepsen.util: 2	:invoke	:read	nil
+2026-10-06 14:27:12,867{GMT}	INFO	[jepsen worker 2] jepsen.util: 2	:ok	:read	[31 62 2 7 14 18 28 36 48 53 10 25]
+2026-10-06 14:27:12,972{GMT}	INFO	[jepsen worker 3] jepsen.util: 3	:invoke	:broadcast	64
+2026-10-06 14:27:12,973{GMT}	INFO	[jepsen worker 3] jepsen.util: 3	:ok	:broadcast	64
+2026-10-06 14:27:12,992{GMT}	INFO	[jepsen worker 4] jepsen.util: 4	:invoke	:broadcast	65
+2026-10-06 14:27:12,993{GMT}	INFO	[jepsen worker 4] jepsen.util: 4	:ok	:broadcast	65
+2026-10-06 14:27:13,165{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:invoke	:read	nil
+2026-10-06 14:27:13,167{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:ok	:read	[6 20 34 56 60 9 12 22 45 52 61 0 5 15 42 46 8 26 37 41]
+2026-10-06 14:27:13,178{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:invoke	:read	nil
+2026-10-06 14:27:13,180{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:ok	:read	[26 37 41 6 20 34 56 60 9 12 22 45 52 61 0 5 15 42 46 8]
+2026-10-06 14:27:13,330{GMT}	INFO	[jepsen worker 1] jepsen.util: 1	:invoke	:read	nil
+2026-10-06 14:27:13,332{GMT}	INFO	[jepsen worker 1] jepsen.util: 1	:ok	:read	[13 23 39 43 57 1 27 35 47 51]
+2026-10-06 14:27:13,348{GMT}	INFO	[jepsen worker 2] jepsen.util: 2	:invoke	:read	nil
+2026-10-06 14:27:13,350{GMT}	INFO	[jepsen worker 2] jepsen.util: 2	:ok	:read	[2 7 14 18 28 36 48 53 10 25 31 62]
+2026-10-06 14:27:13,371{GMT}	INFO	[jepsen worker 3] jepsen.util: 3	:invoke	:read	nil
+2026-10-06 14:27:13,373{GMT}	INFO	[jepsen worker 3] jepsen.util: 3	:ok	:read	[32 38 58 3 11 17 19 21 29 49 54 16 24 63 64]
+2026-10-06 14:27:13,486{GMT}	INFO	[jepsen worker 4] jepsen.util: 4	:invoke	:broadcast	66
+2026-10-06 14:27:13,487{GMT}	INFO	[jepsen worker 4] jepsen.util: 4	:ok	:broadcast	66
+2026-10-06 14:27:13,616{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:invoke	:broadcast	67
+2026-10-06 14:27:13,618{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:ok	:broadcast	67
+2026-10-06 14:27:13,737{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:invoke	:read	nil
+2026-10-06 14:27:13,738{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:ok	:read	[46 8 26 37 41 6 20 34 56 60 67 9 12 22 45 52 61 0 5 15 42]
+2026-10-06 14:27:13,863{GMT}	INFO	[jepsen worker 1] jepsen.util: 1	:invoke	:broadcast	68
+2026-10-06 14:27:13,865{GMT}	INFO	[jepsen worker 1] jepsen.util: 1	:ok	:broadcast	68
+2026-10-06 14:27:13,991{GMT}	INFO	[jepsen worker 2] jepsen.util: 2	:invoke	:read	nil
+2026-10-06 14:27:13,993{GMT}	INFO	[jepsen worker 2] jepsen.util: 2	:ok	:read	[31 62 2 7 14 18 28 36 48 53 10 25]
+2026-10-06 14:27:14,105{GMT}	INFO	[jepsen worker 3] jepsen.util: 3	:invoke	:broadcast	69
+2026-10-06 14:27:14,107{GMT}	INFO	[jepsen worker 3] jepsen.util: 3	:ok	:broadcast	69
+2026-10-06 14:27:14,199{GMT}	INFO	[jepsen worker 4] jepsen.util: 4	:invoke	:broadcast	70
+2026-10-06 14:27:14,202{GMT}	INFO	[jepsen worker 4] jepsen.util: 4	:ok	:broadcast	70
+2026-10-06 14:27:14,312{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:invoke	:broadcast	71
+2026-10-06 14:27:14,314{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:ok	:broadcast	71
+2026-10-06 14:27:14,498{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:invoke	:read	nil
+2026-10-06 14:27:14,500{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:ok	:read	[67 9 12 22 45 52 61 0 5 15 42 46 8 26 37 41 71 6 20 34 56 60]
+2026-10-06 14:27:14,610{GMT}	INFO	[jepsen worker 1] jepsen.util: 1	:invoke	:read	nil
+2026-10-06 14:27:14,613{GMT}	INFO	[jepsen worker 1] jepsen.util: 1	:ok	:read	[13 23 39 43 57 1 27 35 47 51 68]
+2026-10-06 14:27:14,794{GMT}	INFO	[jepsen worker 2] jepsen.util: 2	:invoke	:read	nil
+2026-10-06 14:27:14,796{GMT}	INFO	[jepsen worker 2] jepsen.util: 2	:ok	:read	[2 7 14 18 28 36 48 53 10 25 31 62]
+2026-10-06 14:27:14,843{GMT}	INFO	[jepsen worker 3] jepsen.util: 3	:invoke	:read	nil
+2026-10-06 14:27:14,845{GMT}	INFO	[jepsen worker 3] jepsen.util: 3	:ok	:read	[32 38 58 69 3 11 17 19 21 29 49 54 16 24 63 64]
+2026-10-06 14:27:14,888{GMT}	INFO	[jepsen worker 4] jepsen.util: 4	:invoke	:read	nil
+2026-10-06 14:27:14,891{GMT}	INFO	[jepsen worker 4] jepsen.util: 4	:ok	:read	[4 33 40 55 66 30 44 50 59 65 70]
+2026-10-06 14:27:15,066{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:invoke	:broadcast	72
+2026-10-06 14:27:15,068{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:ok	:broadcast	72
+2026-10-06 14:27:15,189{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:invoke	:read	nil
+2026-10-06 14:27:15,191{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:ok	:read	[52 61 0 5 15 42 46 8 26 37 41 71 72 6 20 34 56 60 67 9 12 22 45]
+2026-10-06 14:27:15,353{GMT}	INFO	[jepsen worker 1] jepsen.util: 1	:invoke	:broadcast	73
+2026-10-06 14:27:15,354{GMT}	INFO	[jepsen worker 1] jepsen.util: 1	:ok	:broadcast	73
+2026-10-06 14:27:15,489{GMT}	INFO	[jepsen worker 2] jepsen.util: 2	:invoke	:read	nil
+2026-10-06 14:27:15,491{GMT}	INFO	[jepsen worker 2] jepsen.util: 2	:ok	:read	[36 48 53 10 25 31 62 2 7 14 18 28]
+2026-10-06 14:27:15,654{GMT}	INFO	[jepsen worker 3] jepsen.util: 3	:invoke	:read	nil
+2026-10-06 14:27:15,656{GMT}	INFO	[jepsen worker 3] jepsen.util: 3	:ok	:read	[32 38 58 69 3 11 17 19 21 29 49 54 16 24 63 64]
+2026-10-06 14:27:15,660{GMT}	INFO	[jepsen worker 4] jepsen.util: 4	:invoke	:read	nil
+2026-10-06 14:27:15,661{GMT}	INFO	[jepsen worker 4] jepsen.util: 4	:ok	:read	[30 44 50 59 65 70 4 33 40 55 66]
+2026-10-06 14:27:15,698{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:invoke	:broadcast	74
+2026-10-06 14:27:15,700{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:ok	:broadcast	74
+2026-10-06 14:27:15,745{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:invoke	:read	nil
+2026-10-06 14:27:15,747{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:ok	:read	[9 12 22 45 52 61 0 5 15 42 46 8 26 37 41 71 72 74 6 20 34 56 60 67]
+2026-10-06 14:27:15,883{GMT}	INFO	[jepsen worker 1] jepsen.util: 1	:invoke	:read	nil
+2026-10-06 14:27:15,885{GMT}	INFO	[jepsen worker 1] jepsen.util: 1	:ok	:read	[35 47 51 68 13 23 39 43 57 73 1 27]
+2026-10-06 14:27:15,890{GMT}	INFO	[jepsen worker 2] jepsen.util: 2	:invoke	:read	nil
+2026-10-06 14:27:15,891{GMT}	INFO	[jepsen worker 2] jepsen.util: 2	:ok	:read	[2 7 14 18 28 36 48 53 10 25 31 62]
+2026-10-06 14:27:15,921{GMT}	INFO	[jepsen worker 3] jepsen.util: 3	:invoke	:broadcast	75
+2026-10-06 14:27:15,923{GMT}	INFO	[jepsen worker 3] jepsen.util: 3	:ok	:broadcast	75
+2026-10-06 14:27:15,999{GMT}	INFO	[jepsen worker 4] jepsen.util: 4	:invoke	:broadcast	76
+2026-10-06 14:27:16,000{GMT}	INFO	[jepsen worker 4] jepsen.util: 4	:ok	:broadcast	76
+2026-10-06 14:27:16,018{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:invoke	:broadcast	77
+2026-10-06 14:27:16,020{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:ok	:broadcast	77
+2026-10-06 14:27:16,167{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:invoke	:broadcast	78
+2026-10-06 14:27:16,169{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:ok	:broadcast	78
+2026-10-06 14:27:16,329{GMT}	INFO	[jepsen worker 1] jepsen.util: 1	:invoke	:read	nil
+2026-10-06 14:27:16,331{GMT}	INFO	[jepsen worker 1] jepsen.util: 1	:ok	:read	[1 27 35 47 51 68 13 23 39 43 57 73]
+2026-10-06 14:27:16,357{GMT}	INFO	[jepsen worker 2] jepsen.util: 2	:invoke	:broadcast	79
+2026-10-06 14:27:16,359{GMT}	INFO	[jepsen worker 2] jepsen.util: 2	:ok	:broadcast	79
+2026-10-06 14:27:16,466{GMT}	INFO	[jepsen worker 3] jepsen.util: 3	:invoke	:broadcast	80
+2026-10-06 14:27:16,467{GMT}	INFO	[jepsen worker 3] jepsen.util: 3	:ok	:broadcast	80
+2026-10-06 14:27:16,585{GMT}	INFO	[jepsen worker 4] jepsen.util: 4	:invoke	:read	nil
+2026-10-06 14:27:16,587{GMT}	INFO	[jepsen worker 4] jepsen.util: 4	:ok	:read	[4 33 40 55 66 30 44 50 59 65 70 76]
+2026-10-06 14:27:16,627{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:invoke	:broadcast	81
+2026-10-06 14:27:16,629{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:ok	:broadcast	81
+2026-10-06 14:27:16,673{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:invoke	:broadcast	82
+2026-10-06 14:27:16,675{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:ok	:broadcast	82
+2026-10-06 14:27:16,699{GMT}	INFO	[jepsen worker 1] jepsen.util: 1	:invoke	:broadcast	83
+2026-10-06 14:27:16,700{GMT}	INFO	[jepsen worker 1] jepsen.util: 1	:ok	:broadcast	83
+2026-10-06 14:27:16,844{GMT}	INFO	[jepsen worker 2] jepsen.util: 2	:invoke	:broadcast	84
+2026-10-06 14:27:16,845{GMT}	INFO	[jepsen worker 2] jepsen.util: 2	:ok	:broadcast	84
+2026-10-06 14:27:16,901{GMT}	INFO	[jepsen worker 3] jepsen.util: 3	:invoke	:broadcast	85
+2026-10-06 14:27:16,902{GMT}	INFO	[jepsen worker 3] jepsen.util: 3	:ok	:broadcast	85
+2026-10-06 14:27:17,015{GMT}	INFO	[jepsen worker 4] jepsen.util: 4	:invoke	:broadcast	86
+2026-10-06 14:27:17,016{GMT}	INFO	[jepsen worker 4] jepsen.util: 4	:ok	:broadcast	86
+2026-10-06 14:27:17,144{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:invoke	:broadcast	87
+2026-10-06 14:27:17,145{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:ok	:broadcast	87
+2026-10-06 14:27:17,251{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:invoke	:broadcast	88
+2026-10-06 14:27:17,252{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:ok	:broadcast	88
+2026-10-06 14:27:17,449{GMT}	INFO	[jepsen worker 1] jepsen.util: 1	:invoke	:broadcast	89
+2026-10-06 14:27:17,450{GMT}	INFO	[jepsen worker 2] jepsen.util: 2	:invoke	:broadcast	90
+2026-10-06 14:27:17,451{GMT}	INFO	[jepsen worker 2] jepsen.util: 2	:ok	:broadcast	90
+2026-10-06 14:27:17,451{GMT}	INFO	[jepsen worker 1] jepsen.util: 1	:ok	:broadcast	89
+2026-10-06 14:27:17,592{GMT}	INFO	[jepsen worker 3] jepsen.util: 3	:invoke	:read	nil
+2026-10-06 14:27:17,595{GMT}	INFO	[jepsen worker 3] jepsen.util: 3	:ok	:read	[32 38 58 69 3 11 17 19 21 29 49 54 16 24 63 64 75 80 85]
+2026-10-06 14:27:17,769{GMT}	INFO	[jepsen worker 4] jepsen.util: 4	:invoke	:read	nil
+2026-10-06 14:27:17,771{GMT}	INFO	[jepsen worker 4] jepsen.util: 4	:ok	:read	[70 76 86 4 33 40 55 66 30 44 50 59 65]
+2026-10-06 14:27:17,834{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:invoke	:read	nil
+2026-10-06 14:27:17,835{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:ok	:read	[8 41 71 82 6 34 67 88 9 45 52 0 5 15 46 87 26 37 72 74 81 20 56 60 77 78 12 22 61 42]
+2026-10-06 14:27:17,900{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:invoke	:read	nil
+2026-10-06 14:27:17,902{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:ok	:read	[42 8 41 71 82 6 34 67 88 9 45 52 0 5 15 46 87 26 37 72 74 81 20 56 60 77 78 12 22 61]
+2026-10-06 14:27:17,906{GMT}	INFO	[jepsen worker 1] jepsen.util: 1	:invoke	:broadcast	91
+2026-10-06 14:27:17,908{GMT}	INFO	[jepsen worker 1] jepsen.util: 1	:ok	:broadcast	91
+2026-10-06 14:27:18,004{GMT}	INFO	[jepsen worker 2] jepsen.util: 2	:invoke	:broadcast	92
+2026-10-06 14:27:18,006{GMT}	INFO	[jepsen worker 2] jepsen.util: 2	:ok	:broadcast	92
+2026-10-06 14:27:18,176{GMT}	INFO	[jepsen worker 3] jepsen.util: 3	:invoke	:read	nil
+2026-10-06 14:27:18,178{GMT}	INFO	[jepsen worker 3] jepsen.util: 3	:ok	:read	[3 11 17 19 21 29 49 54 16 24 63 64 75 80 85 32 38 58 69]
+2026-10-06 14:27:18,369{GMT}	INFO	[jepsen worker 4] jepsen.util: 4	:invoke	:broadcast	93
+2026-10-06 14:27:18,371{GMT}	INFO	[jepsen worker 4] jepsen.util: 4	:ok	:broadcast	93
+2026-10-06 14:27:18,564{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:invoke	:read	nil
+2026-10-06 14:27:18,566{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:ok	:read	[81 20 56 60 77 78 12 22 61 42 8 41 71 82 6 34 67 88 9 45 52 0 5 15 46 87 26 37 72 74]
+2026-10-06 14:27:18,615{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:invoke	:broadcast	94
+2026-10-06 14:27:18,616{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:ok	:broadcast	94
+2026-10-06 14:27:18,741{GMT}	INFO	[jepsen worker 1] jepsen.util: 1	:invoke	:read	nil
+2026-10-06 14:27:18,742{GMT}	INFO	[jepsen worker 1] jepsen.util: 1	:ok	:read	[27 35 47 51 68 23 57 91 1 89 13 39 43 73 83]
+2026-10-06 14:27:18,842{GMT}	INFO	[jepsen worker 2] jepsen.util: 2	:invoke	:read	nil
+2026-10-06 14:27:18,844{GMT}	INFO	[jepsen worker 2] jepsen.util: 2	:ok	:read	[36 48 53 10 25 31 84 62 79 90 92 2 7 14 18 28]
+2026-10-06 14:27:18,987{GMT}	INFO	[jepsen worker 3] jepsen.util: 3	:invoke	:broadcast	95
+2026-10-06 14:27:18,989{GMT}	INFO	[jepsen worker 3] jepsen.util: 3	:ok	:broadcast	95
+2026-10-06 14:27:19,186{GMT}	INFO	[jepsen worker 4] jepsen.util: 4	:invoke	:read	nil
+2026-10-06 14:27:19,187{GMT}	INFO	[jepsen worker 4] jepsen.util: 4	:ok	:read	[70 76 86 4 33 40 55 66 93 30 44 50 59 65]
+2026-10-06 14:27:19,250{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:invoke	:broadcast	96
+2026-10-06 14:27:19,252{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:ok	:broadcast	96
+2026-10-06 14:27:19,414{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:invoke	:read	nil
+2026-10-06 14:27:19,416{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:ok	:read	[8 41 71 82 6 34 67 88 96 9 45 52 0 5 15 46 87 26 37 72 74 81 20 56 60 77 78 94 12 22 61 42]
+2026-10-06 14:27:19,550{GMT}	INFO	[jepsen worker 1] jepsen.util: 1	:invoke	:read	nil
+2026-10-06 14:27:19,552{GMT}	INFO	[jepsen worker 1] jepsen.util: 1	:ok	:read	[27 35 47 51 68 23 57 91 1 89 13 39 43 73 83]
+2026-10-06 14:27:19,622{GMT}	INFO	[jepsen worker 2] jepsen.util: 2	:invoke	:read	nil
+2026-10-06 14:27:19,623{GMT}	INFO	[jepsen worker 2] jepsen.util: 2	:ok	:read	[14 18 28 36 48 53 10 25 31 84 62 79 90 92 2 7]
+2026-10-06 14:27:19,659{GMT}	INFO	[jepsen worker 3] jepsen.util: 3	:invoke	:read	nil
+2026-10-06 14:27:19,661{GMT}	INFO	[jepsen worker 3] jepsen.util: 3	:ok	:read	[3 11 17 19 21 29 49 54 16 24 63 64 75 80 85 95 32 38 58 69]
+2026-10-06 14:27:19,836{GMT}	INFO	[jepsen worker 4] jepsen.util: 4	:invoke	:broadcast	97
+2026-10-06 14:27:19,838{GMT}	INFO	[jepsen worker 4] jepsen.util: 4	:ok	:broadcast	97
+2026-10-06 14:27:20,002{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:invoke	:read	nil
+2026-10-06 14:27:20,004{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:ok	:read	[88 96 9 45 52 0 5 15 46 87 26 37 72 74 81 20 56 60 77 78 94 12 22 61 42 8 41 71 82 6 34 67]
+2026-10-06 14:27:20,005{GMT}	INFO	[jepsen worker 0] jepsen.generator.interpreter: Waiting for recovery...
+2026-10-06 14:27:30,008{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:invoke	:read	nil
+2026-10-06 14:27:30,008{GMT}	INFO	[jepsen worker 3] jepsen.util: 3	:invoke	:read	nil
+2026-10-06 14:27:30,009{GMT}	INFO	[jepsen worker 4] jepsen.util: 4	:invoke	:read	nil
+2026-10-06 14:27:30,009{GMT}	INFO	[jepsen worker 1] jepsen.util: 1	:invoke	:read	nil
+2026-10-06 14:27:30,009{GMT}	INFO	[jepsen worker 2] jepsen.util: 2	:invoke	:read	nil
+2026-10-06 14:27:30,010{GMT}	INFO	[jepsen worker 4] jepsen.util: 4	:ok	:read	[44 65 76 97 33 50 59 70 86 4 40 55 66 93 30]
+2026-10-06 14:27:30,010{GMT}	INFO	[jepsen worker 1] jepsen.util: 1	:ok	:read	[68 23 57 91 1 89 13 39 43 73 83 27 35 47 51]
+2026-10-06 14:27:30,010{GMT}	INFO	[jepsen worker 3] jepsen.util: 3	:ok	:read	[17 19 21 29 49 54 16 24 63 64 75 80 85 95 32 38 58 69 3 11]
+2026-10-06 14:27:30,010{GMT}	INFO	[jepsen worker 0] jepsen.util: 0	:ok	:read	[41 71 82 6 34 67 88 96 9 45 52 0 5 15 46 87 26 37 72 74 81 20 56 60 77 78 94 12 22 61 42 8]
+2026-10-06 14:27:30,010{GMT}	INFO	[jepsen worker 2] jepsen.util: 2	:ok	:read	[2 7 14 18 28 36 48 53 10 25 31 84 62 79 90 92]
+2026-10-06 14:27:30,038{GMT}	INFO	[jepsen test runner] jepsen.core: Run complete, writing
+2026-10-06 14:27:30,129{GMT}	INFO	[jepsen node n0] maelstrom.db: Tearing down n0
+2026-10-06 14:27:30,129{GMT}	INFO	[jepsen node n1] maelstrom.db: Tearing down n1
+2026-10-06 14:27:30,129{GMT}	INFO	[jepsen node n2] maelstrom.db: Tearing down n2
+2026-10-06 14:27:30,129{GMT}	INFO	[jepsen node n3] maelstrom.db: Tearing down n3
+2026-10-06 14:27:30,130{GMT}	INFO	[jepsen node n4] maelstrom.db: Tearing down n4
+2026-10-06 14:27:31,069{GMT}	INFO	[jepsen node n0] maelstrom.net: Shutting down Maelstrom network
+2026-10-06 14:27:31,071{GMT}	INFO	[jepsen test runner] jepsen.core: Analyzing...
+2026-10-06 14:27:31,483{GMT}	INFO	[jepsen test runner] jepsen.core: Analysis complete
+2026-10-06 14:27:31,536{GMT}	INFO	[jepsen results] jepsen.store: Wrote /home/morgankim/synapse/distributed_systems/dist_sys/multi-node-broadcast/store/broadcast/20261006T142657.773-0700/results.edn
+2026-10-06 14:27:31,588{GMT}	INFO	[jepsen test runner] jepsen.core: {:perf {:latency-graph {:valid? true},
+        :rate-graph {:valid? true},
+        :valid? true},
+ :timeline {:valid? true},
+ :exceptions {:valid? true},
+ :stats {:valid? true,
+         :count 209,
+         :ok-count 209,
+         :fail-count 0,
+         :info-count 0,
+         :by-f {:broadcast {:valid? true,
+                            :count 98,
+                            :ok-count 98,
+                            :fail-count 0,
+                            :info-count 0},
+                :read {:valid? true,
+                       :count 111,
+                       :ok-count 111,
+                       :fail-count 0,
+                       :info-count 0}}},
+ :availability {:valid? true, :ok-fraction 1.0},
+ :net {:all {:send-count 438,
+             :recv-count 438,
+             :msg-count 438,
+             :msgs-per-op 2.0956938},
+       :clients {:send-count 438, :recv-count 438, :msg-count 438},
+       :servers {:send-count 0,
+                 :recv-count 0,
+                 :msg-count 0,
+                 :msgs-per-op 0.0},
+       :valid? true},
+ :workload {:worst-stale ({:element 2,
+                           :outcome :stable,
+                           :stable-latency 29590,
+                           :lost-latency nil,
+                           :known #jepsen.history.Op{:index 5,
+                                                     :time 330012613,
+                                                     :type :ok,
+                                                     :process 2,
+                                                     :f :add,
+                                                     :value 2},
+                           :last-absent #jepsen.history.Op{:index 411,
+                                                           :time 29920228920,
+                                                           :type :invoke,
+                                                           :process 1,
+                                                           :f :read,
+                                                           :value nil,
+                                                           :final? true}}
+                          {:element 7,
+                           :outcome :stable,
+                           :stable-latency 28954,
+                           :lost-latency nil,
+                           :known #jepsen.history.Op{:index 17,
+                                                     :time 965333728,
+                                                     :type :ok,
+                                                     :process 2,
+                                                     :f :add,
+                                                     :value 7},
+                           :last-absent #jepsen.history.Op{:index 411,
+                                                           :time 29920228920,
+                                                           :type :invoke,
+                                                           :process 1,
+                                                           :f :read,
+                                                           :value nil,
+                                                           :final? true}}
+                          {:element 10,
+                           :outcome :stable,
+                           :stable-latency 28009,
+                           :lost-latency nil,
+                           :known #jepsen.history.Op{:index 41,
+                                                     :time 1910826264,
+                                                     :type :ok,
+                                                     :process 2,
+                                                     :f :add,
+                                                     :value 10},
+                           :last-absent #jepsen.history.Op{:index 411,
+                                                           :time 29920228920,
+                                                           :type :invoke,
+                                                           :process 1,
+                                                           :f :read,
+                                                           :value nil,
+                                                           :final? true}}
+                          {:element 14,
+                           :outcome :stable,
+                           :stable-latency 27447,
+                           :lost-latency nil,
+                           :known #jepsen.history.Op{:index 53,
+                                                     :time 2472819128,
+                                                     :type :ok,
+                                                     :process 2,
+                                                     :f :add,
+                                                     :value 14},
+                           :last-absent #jepsen.history.Op{:index 411,
+                                                           :time 29920228920,
+                                                           :type :invoke,
+                                                           :process 1,
+                                                           :f :read,
+                                                           :value nil,
+                                                           :final? true}}
+                          {:element 18,
+                           :outcome :stable,
+                           :stable-latency 25957,
+                           :lost-latency nil,
+                           :known #jepsen.history.Op{:index 89,
+                                                     :time 3962368893,
+                                                     :type :ok,
+                                                     :process 2,
+                                                     :f :add,
+                                                     :value 18},
+                           :last-absent #jepsen.history.Op{:index 411,
+                                                           :time 29920228920,
+                                                           :type :invoke,
+                                                           :process 1,
+                                                           :f :read,
+                                                           :value nil,
+                                                           :final? true}}
+                          {:element 25,
+                           :outcome :stable,
+                           :stable-latency 24333,
+                           :lost-latency nil,
+                           :known #jepsen.history.Op{:index 125,
+                                                     :time 5587180131,
+                                                     :type :ok,
+                                                     :process 2,
+                                                     :f :add,
+                                                     :value 25},
+                           :last-absent #jepsen.history.Op{:index 411,
+                                                           :time 29920228920,
+                                                           :type :invoke,
+                                                           :process 1,
+                                                           :f :read,
+                                                           :value nil,
+                                                           :final? true}}
+                          {:element 28,
+                           :outcome :stable,
+                           :stable-latency 23716,
+                           :lost-latency nil,
+                           :known #jepsen.history.Op{:index 137,
+                                                     :time 6203989147,
+                                                     :type :ok,
+                                                     :process 2,
+                                                     :f :add,
+                                                     :value 28},
+                           :last-absent #jepsen.history.Op{:index 411,
+                                                           :time 29920228920,
+                                                           :type :invoke,
+                                                           :process 1,
+                                                           :f :read,
+                                                           :value nil,
+                                                           :final? true}}
+                          {:element 31,
+                           :outcome :stable,
+                           :stable-latency 23295,
+                           :lost-latency nil,
+                           :known #jepsen.history.Op{:index 149,
+                                                     :time 6624510279,
+                                                     :type :ok,
+                                                     :process 2,
+                                                     :f :add,
+                                                     :value 31},
+                           :last-absent #jepsen.history.Op{:index 411,
+                                                           :time 29920228920,
+                                                           :type :invoke,
+                                                           :process 1,
+                                                           :f :read,
+                                                           :value nil,
+                                                           :final? true}}),
+            :duplicated-count 0,
+            :valid? false,
+            :lost-count 82,
+            :lost (0
+                   1
+                   3
+                   4
+                   5
+                   6
+                   8
+                   9
+                   11
+                   12
+                   13
+                   15
+                   16
+                   17
+                   19
+                   20
+                   21
+                   22
+                   23
+                   24
+                   26
+                   27
+                   29
+                   30
+                   32
+                   33
+                   34
+                   35
+                   37
+                   38
+                   39
+                   40
+                   41
+                   42
+                   43
+                   44
+                   45
+                   46
+                   47
+                   49
+                   50
+                   51
+                   52
+                   54
+                   55
+                   56
+                   57
+                   58
+                   59
+                   60
+                   61
+                   63
+                   64
+                   65
+                   66
+                   67
+                   68
+                   69
+                   70
+                   71
+                   72
+                   73
+                   74
+                   75
+                   76
+                   77
+                   78
+                   80
+                   81
+                   82
+                   83
+                   85
+                   86
+                   87
+                   88
+                   89
+                   91
+                   93
+                   94
+                   95
+                   96
+                   97),
+            :stable-count 16,
+            :stale-count 16,
+            :stale (2 7 10 14 18 25 28 31 36 48 53 62 79 84 90 92),
+            :never-read-count 0,
+            :stable-latencies {0 12002,
+                               0.5 23295,
+                               0.95 29590,
+                               0.99 29590,
+                               1 29590},
+            :attempt-count 98,
+            :lost-latencies {0 10170,
+                             0.5 19829,
+                             0.95 29352,
+                             0.99 29893,
+                             1 29893},
+            :never-read (),
+            :duplicated {}},
+ :valid? false}
+
+
+Analysis invalid! (ﾉಥ益ಥ）ﾉ ┻━┻
